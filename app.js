@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 let fin = mailchimp.setConfig({
-  apiKey: "5f8f56e0e78bc17b37dac16f5c300bfc",
+  apiKey: "147b416138aae4530104b2e06247f9b2",
   server: "us21",
 });
 
@@ -57,18 +57,19 @@ app.post("/", (req, res) => {
     url: `https://us21.api.mailchimp.com/3.0/lists/75abbe797e`,
     method: "POST",
     headers: {
-      Authorization: "auth 5f8f56e0e78bc17b37dac16f5c300bfc-us21",
+      Authorization: "auth 147b416138aae4530104b2e06247f9b2-us21",
     },
     body: jsondata,
   };
   request(options, (error, response, body) => {
     if (error) {
       res.sendFile(`${__dirname}/failure.html`);
+      
     }
     else {
       if (response.statusCode === 200) {
         res.sendFile(`${__dirname}/success.html`);
-        console.log(response.statusCode);
+        
       } 
       else {
         res.sendFile(`${__dirname}/failure.html`);
@@ -80,11 +81,11 @@ app.post("/", (req, res) => {
 app.post("/failure", (req, res) => {
   res.redirect("/");
 });
-app.listen(port, () => {
+app.listen(process.env.PORT||port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-//5f8f56e0e78bc17b37dac16f5c300bfc-us21
+//147b416138aae4530104b2e06247f9b2-us21
 
 //75abbe797e.
 // https://us21.api.mailchimp.com/3.0/lists/75abbe797e/members/5f8f56e0e78bc17b37dac16f5c300bfc/
